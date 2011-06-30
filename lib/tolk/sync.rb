@@ -11,6 +11,7 @@ module Tolk
 
       def load_translations
         I18n.available_locales # force load
+        I18n.backend.send(:init_translations) #Fixed error with nil data (tested under rails 3.0.6, i18n 0.5.0)
         translations = flat_hash(I18n.backend.send(:translations)[primary_locale.name.to_sym])
         filter_out_i18n_keys(translations.merge(read_primary_locale_file))
       end
